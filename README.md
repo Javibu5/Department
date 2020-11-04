@@ -1,3 +1,8 @@
+Educational project
+Creation of a department, deleted and edited, through an API.Use Event Sourcing to save the events, and rebuild the view from scratch for the read model.
+Using nestj as a framework, docker to set up the MongoDB database which is a database that stores your data as documents.
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
