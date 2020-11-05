@@ -21,7 +21,8 @@ export class DepartmentController {
     @HttpCode(204)
     @Post()
     async createDepartment(@Body() departmentDto : DepartmentDto ) : Promise<void> {
-        await this.departmentService.
+        await this.departmentService.createDepartment(departmentDto.id, departmentDto.name);
+
     }
 
 }
