@@ -13,7 +13,9 @@ export class DepartmentsEventStore implements Departments {
         throw new Error("Method not implemented.");
     }
     save(department: Department): void {
+        department = this.publisher.mergeObjectContext(department)
         department.commit();
+
     }
 
 }

@@ -1,6 +1,7 @@
 import { Body, Controller, Get, HttpCode, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { DepartmentDto } from "../dto/department.dto";
+import { DepartmentView } from "../read-model/schema/department.schema";
 import { DepartmentService } from "../service/department.service";
 
 
@@ -23,6 +24,14 @@ export class DepartmentController {
     async createDepartment(@Body() departmentDto : DepartmentDto ) : Promise<void> {
         await this.departmentService.createDepartment(departmentDto.id, departmentDto.name);
 
+    }
+
+    @ApiOperation ({summary: 'Get department'})
+    @ApiResponse({ status: 204, description: 'Get department.' })
+    @ApiResponse({ status: 404, description: 'Not found' })
+    @Get(':id')
+    async getDepartment() : Promise<DepartmentView>{
+        return await this.departmentService.
     }
 
 }
