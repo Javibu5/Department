@@ -1,4 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+
 import { DepartmentWasCreated, DepartmentWasRemoved, DepartmentWasRenamed } from "../event";
 import { DepartmentId } from "./department-id";
 import { DepartmentName } from "./department-name";
@@ -40,6 +41,13 @@ get isRemoved(): boolean{
     return this._isRemoved;
 }
 
+remove(){
+    if(this._isRemoved){
+        return
+    }
+    this.apply(new DepartmentWasRemoved(this._departmentId.value));
+}
+
 rename( name: DepartmentName){
     if(name.equals(this._name)){
         return;
@@ -47,6 +55,8 @@ rename( name: DepartmentName){
 
     this.apply(new DepartmentWasRenamed(this._departmentId.value, name.value))
 }
+
+
 
 private onDepartmentWasCreated(event: DepartmentWasCreated) {
     this._departmentId = DepartmentId.fromString(event.id);

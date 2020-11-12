@@ -6,10 +6,10 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule.forRoot());
-  const logger = new Logger('IAM');
+  const logger = new Logger('DEPARTMENT');
 
   const options = new DocumentBuilder()
-    .setTitle('IAM')
+    .setTitle('DEPARTMENT')
     .setVersion('1.0')
     .build();
 

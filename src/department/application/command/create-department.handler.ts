@@ -3,6 +3,7 @@ import { Inject} from "@nestjs/common";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { Department, DepartmentId, DepartmentName } from "src/department/domain/model";
 import { DEPARTMENTS, Departments } from "src/department/domain/repository";
+
 import { CreateDepartmentCommand } from "./create-department.command";
 
 @CommandHandler(CreateDepartmentCommand)

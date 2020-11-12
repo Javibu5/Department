@@ -1,5 +1,6 @@
-import { Body, Controller, Get, HttpCode, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Post, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+
 import { DepartmentDto } from "../dto/department.dto";
 import { DepartmentView } from "../read-model/schema/department.schema";
 import { DepartmentService } from "../service/department.service";
@@ -13,8 +14,8 @@ export class DepartmentController {
     @ApiOperation({ summary: 'Get Departments' })
     @ApiResponse ({ status: 200, description: 'Get Departments.' })
     @Get()
-    async getDepartments() : Promise<[]>{
-        return []
+    async getDepartments() : Promise<DepartmentView[]>{
+        return await this.departmentService.getDepartments();
     }
 
     @ApiOperation({ summary: 'Create Department'})
@@ -27,11 +28,31 @@ export class DepartmentController {
     }
 
     @ApiOperation ({summary: 'Get department'})
-    @ApiResponse({ status: 204, description: 'Get department.' })
+    @ApiResponse({ status: 200, description: 'Get department.' })
     @ApiResponse({ status: 404, description: 'Not found' })
     @Get(':id')
-    async getDepartment() : Promise<DepartmentView>{
-        return await this.departmentService.
+    async getDepartment(@Query('id') id : string) : Promise<DepartmentView>{
+        
+       try{
+        return await this.departmentService.getDepartment(id);
+       }catch (e) {
+        if (e instanceof Error) {
+            throw new BadRequestException(`Unexpected error: ${e.message}`);
+          } else {
+            throw new BadRequestException('Server error');
+          }
+       }
     }
+
+    @ApiOperation ({summary: 'Delete department'})
+    @ApiResponse({ status: 204, description: 'Delete department'})
+    @ApiResponse({ status: 404, description: 'Not found'})
+    @Delete(':id')
+    async deleteDepartment(@Query('id') id: string) : Promise<void>{
+
+        await this.departmentService.deleteDepartment(id);
+
+    }
+
 
 }
