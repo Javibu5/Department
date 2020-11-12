@@ -1,7 +1,8 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Post, Query } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Post, Put, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { DepartmentDto } from "../dto/department.dto";
+import { RenameDepartmentDto } from "../dto/rename-department.dto";
 import { DepartmentView } from "../read-model/schema/department.schema";
 import { DepartmentService } from "../service/department.service";
 
@@ -54,5 +55,12 @@ export class DepartmentController {
 
     }
 
+    @ApiOperation ({summary: 'Rename department'})
+    @ApiResponse({ status: 204, description: 'Rename department'})
+    @ApiResponse({ status: 404, description: 'Not found'})
+    @Put(':id')
+    async renameDepartment(@Query('id')id: string,@Body() departmentDto: RenameDepartmentDto){
+        await this.departmentService.renameDepartment(id, departmentDto.name);
+    }
 
 }

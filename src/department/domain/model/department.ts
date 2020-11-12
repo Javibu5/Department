@@ -1,6 +1,6 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 
-import { DepartmentWasCreated, DepartmentWasRemoved, DepartmentWasRenamed } from "../event";
+import { DepartmentWasCreated, DepartmentWasDeleted, DepartmentWasRenamed } from "../event";
 import { DepartmentId } from "./department-id";
 import { DepartmentName } from "./department-name";
 
@@ -45,7 +45,7 @@ remove(){
     if(this._isRemoved){
         return
     }
-    this.apply(new DepartmentWasRemoved(this._departmentId.value));
+    this.apply(new DepartmentWasDeleted(this._departmentId.value));
 }
 
 rename( name: DepartmentName){
@@ -69,7 +69,7 @@ private onDepartmentWasCreated(event: DepartmentWasCreated) {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private onDepartmentWasRemoved(event: DepartmentWasRemoved) {
+  private onDepartmentWasRemoved(event: DepartmentWasDeleted) {
     this._isRemoved = true;
   }
 }

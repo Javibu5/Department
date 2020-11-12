@@ -3,6 +3,7 @@ import { CommandBus } from "@nestjs/cqrs";
 import { Model } from "mongoose";
 import { CreateDepartmentCommand } from "src/department/application/command/create-department.command";
 import { DeleteDepartmentCommand } from "src/department/application/command/delete-department.command";
+import { RenameDepartmentCommand } from "src/department/application/command/rename-department.command";
 import { Department } from "src/department/domain/model";
 
 import { DEPARTMENT_MODEL,DepartmentView } from "../read-model/schema/department.schema";
@@ -27,4 +28,8 @@ export class DepartmentService {
     async deleteDepartment(id:string) : Promise<void>{
         return this.commandBus.execute(new DeleteDepartmentCommand(id))
     }
+
+    async renameDepartment(id:string , name:string){
+        return this.commandBus.execute(new RenameDepartmentCommand(id, name))
+    } 
 }
