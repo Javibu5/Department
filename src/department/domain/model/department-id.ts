@@ -4,7 +4,7 @@ import {Id} from '../../../common/domain/models/id'
 
 export class DepartmentId extends Id{
     static generate(): DepartmentId {
-        retrun new DepartmentId(uuid());
+        return new DepartmentId(uuid());
     }
 
     public static fromString(id: string): DepartmentId {
