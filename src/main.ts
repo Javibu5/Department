@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule.forRoot());
+  const app = await NestFactory.create(AppModule.forRoot(), { cors: true });
   const logger = new Logger('DEPARTMENT');
 
   const options = new DocumentBuilder()

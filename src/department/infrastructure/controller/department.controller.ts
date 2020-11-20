@@ -1,21 +1,23 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Post, Put, Query } from "@nestjs/common";
-import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Post, Put, Query, Res } from "@nestjs/common";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Response } from "express";
 
 import { DepartmentDto } from "../dto/department.dto";
 import { RenameDepartmentDto } from "../dto/rename-department.dto";
 import { DepartmentView } from "../read-model/schema/department.schema";
 import { DepartmentService } from "../service/department.service";
 
-
-@Controller('department')
+@ApiTags('Departments')
+@Controller('departments')
 export class DepartmentController {
     constructor(private readonly departmentService: DepartmentService){}
 
-
+    
     @ApiOperation({ summary: 'Get Departments' })
     @ApiResponse ({ status: 200, description: 'Get Departments.' })
+    @Header('x-total-count', '2')
     @Get()
-    async getDepartments() : Promise<DepartmentView[]>{
+    async getDepartments( ) : Promise<DepartmentView[]>{
         return await this.departmentService.getDepartments();
     }
 
