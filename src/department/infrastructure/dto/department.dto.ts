@@ -5,7 +5,7 @@ import { IsString } from "class-validator";
 export class DepartmentDto{
     @IsString()
     @ApiProperty()
-    readonly id! : string;
+    readonly _id! : string;
     @IsString()
     @ApiProperty()
     readonly name! : string;

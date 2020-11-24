@@ -11,9 +11,10 @@ export class CreateDepartmentHandler implements ICommandHandler<CreateDepartment
 
     constructor(@Inject(DEPARTMENTS) private readonly departments: Departments){}
 
-    async execute(command: CreateDepartmentCommand): Promise<void> {
+    async execute(command: CreateDepartmentCommand): Promise<Department> {
         const department = Department.add(DepartmentId.fromString(command.id), DepartmentName.fromString(command.name));
         this.departments.save(department);
-    }
 
+        return department;
+    }
 }
