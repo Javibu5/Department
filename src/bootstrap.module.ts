@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EventSourcingModule } from 'event-sourcing-nestjs';
 
 import { DatabaseModule } from './common/database/database.module';
-import { EventStoreModule } from './common/eventstore/eventstore.module';
+
 
 @Module({
   imports: [
