@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Post, Put, Query, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Put, Query, Res } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 
@@ -22,12 +22,18 @@ export class DepartmentController {
     }
 
     @ApiOperation({ summary: 'Create Department'})
-    @ApiResponse ({ status: 204, description: 'Create Department.'})
-    @HttpCode(204)
+    @ApiResponse ({ status: 200, description: 'Create Department.'})
+    @HttpCode(200)
     @Post()
-    async createDepartment(@Body() departmentDto : DepartmentDto ) : Promise<void> {
-        await this.departmentService.createDepartment(departmentDto.id, departmentDto.name);
+    async createDepartment(@Body() departmentDto : DepartmentDto ) : Promise<DepartmentDto> {
+        await this.departmentService.createDepartment(departmentDto._id, departmentDto.name);
 
+        const view = {
+            _id: departmentDto._id,
+            name: departmentDto.name
+        }
+
+        return view;
     }
 
     @ApiOperation ({summary: 'Get department'})
@@ -51,9 +57,9 @@ export class DepartmentController {
     @ApiResponse({ status: 204, description: 'Delete department'})
     @ApiResponse({ status: 404, description: 'Not found'})
     @Delete(':id')
-    async deleteDepartment(@Query('id') id: string) : Promise<void>{
+    async deleteDepartment(@Param() params) : Promise<void>{
 
-        await this.departmentService.deleteDepartment(id);
+        await this.departmentService.deleteDepartment(params.id);
 
     }
 
