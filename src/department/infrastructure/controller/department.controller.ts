@@ -1,6 +1,5 @@
 import { BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Put, Query, Res } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Response } from "express";
 
 import { DepartmentDto } from "../dto/department.dto";
 import { RenameDepartmentDto } from "../dto/rename-department.dto";
